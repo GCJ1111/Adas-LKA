@@ -29,15 +29,12 @@ import CoreMotion
 
 @objc(AAPLGameViewController)
 class GameViewController: UIViewController, SCNSceneRendererDelegate {
-    
-    private let MAX_SPEED: CGFloat = 250
-    
     //some node references for manipulation
-    private var _spotLightNode: SCNNode!
+    var _spotLightNode: SCNNode!
     var _cameraNode: SCNNode!          //the node that owns the camera
-    private var _vehicleNode: SCNNode!
-    private var _vehicle: SCNPhysicsVehicle!
-    private var _reactor: SCNParticleSystem!
+    var _vehicleNode: SCNNode!
+    var _vehicle: SCNPhysicsVehicle!
+    var _reactor: SCNParticleSystem!
     
     //accelerometer
     var _motionManager: CMMotionManager!
@@ -45,34 +42,27 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
     var _orientation: CGFloat = 0.0
     
     //reactor's particle birth rate
-    private var _reactorDefaultBirthRate: CGFloat = 0.0
+    var _reactorDefaultBirthRate: CGFloat = 0.0
     
     // steering factor
-    private var _vehicleSteering: CGFloat = 0.0
+    var _vehicleSteering: CGFloat = 0.0
     
-    private lazy var deviceName: String = {
-        var systemInfo = utsname()
-        uname(&systemInfo)
-        return withUnsafePointer(to: systemInfo.machine) {machinePtr in
-            String(cString: UnsafeRawPointer(machinePtr).assumingMemoryBound(to: CChar.self))
-        }
-    }()
-    
-    private var isHighEndDevice: Bool {
-        //return YES for iPhone 5s and iPad air, NO otherwise
-        return deviceName.hasPrefix("iPad4")
-            || deviceName.hasPrefix("iPhone6")
-            //### Added later devices...
-            || deviceName.hasPrefix("iPad5")
-            || deviceName.hasPrefix("iPad6")
-            || deviceName.hasPrefix("iPad7")
-            || deviceName.hasPrefix("iPad8")
-            || deviceName.hasPrefix("iPhone7")
-            || deviceName.hasPrefix("iPhone8")
-            || deviceName.hasPrefix("iPhone9")
-            || deviceName.hasPrefix("iPhone10")
-            || deviceName.hasPrefix("iPhone11")
 
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        //        UIApplication.shared.isStatusBarHidden = true
+        
+        //setup the scene
+        let scene = setupScene()
+        
+        self.initScene(scene)
+        
+        //setup accelerometer
+        self.setupAccelerometer()
+        
+        super.viewDidLoad()
     }
     
     private func setupEnvironment(_ scene: SCNScene) {
@@ -286,6 +276,29 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         scene.rootNode.addChildNode(ball)
     }
     
+    private func setupMainCamera(_ scene: SCNScene){
+        //create a main camera
+        _cameraNode = SCNNode()
+        _cameraNode.camera = SCNCamera()
+        _cameraNode.camera!.zFar = 500
+        _cameraNode.position = SCNVector3Make(0, 60, 50)
+        _cameraNode.rotation  = SCNVector4Make(1, 0, 0, -Float.pi/4 * 0.75)
+        scene.rootNode.addChildNode(_cameraNode)
+        
+    }
+    private func setupSecondaryCamera(_ scene: SCNScene){
+        //add a secondary camera to the car
+        let frontCameraNode = SCNNode()
+        frontCameraNode.position = SCNVector3Make(0, 3.5, 2.5)
+        frontCameraNode.rotation = SCNVector4Make(0, 1, 0, .pi)
+        frontCameraNode.camera = SCNCamera()
+        //        frontCameraNode.camera!.xFov = 75
+        frontCameraNode.camera!.fieldOfView = 75
+        frontCameraNode.camera!.zFar = 500
+        
+        _vehicleNode.addChildNode(frontCameraNode)
+        
+    }
     
     private func setupVehicle(_ scene: SCNScene) -> SCNNode {
         let carScene = SCNScene(named: "rc_car")!
@@ -353,24 +366,10 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         //setup vehicle
         _vehicleNode = setupVehicle(scene)
         
-        //create a main camera
-        _cameraNode = SCNNode()
-        _cameraNode.camera = SCNCamera()
-        _cameraNode.camera!.zFar = 500
-        _cameraNode.position = SCNVector3Make(0, 60, 50)
-        _cameraNode.rotation  = SCNVector4Make(1, 0, 0, -Float.pi/4 * 0.75)
-        scene.rootNode.addChildNode(_cameraNode)
-        
-        //add a secondary camera to the car
-        let frontCameraNode = SCNNode()
-        frontCameraNode.position = SCNVector3Make(0, 3.5, 2.5)
-        frontCameraNode.rotation = SCNVector4Make(0, 1, 0, .pi)
-        frontCameraNode.camera = SCNCamera()
-//        frontCameraNode.camera!.xFov = 75
-        frontCameraNode.camera!.fieldOfView = 75
-        frontCameraNode.camera!.zFar = 500
-        
-        _vehicleNode.addChildNode(frontCameraNode)
+
+        setupMainCamera(scene)
+        setupSecondaryCamera(scene)
+   
         
         return scene
     }
@@ -381,22 +380,6 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         return true
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-//        UIApplication.shared.isStatusBarHidden = true
-
-        //setup the scene
-        let scene = setupScene()
-   
-        self.initScene(scene)
-
-        //setup accelerometer
-        self.setupAccelerometer()
-        
-        super.viewDidLoad()
-    }
-    
     @objc func handleDoubleTap(_ gesture: UITapGestureRecognizer) {
         let scene = setupScene()
         
@@ -416,179 +399,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         (scnView as! GameView).touchCount = 0
     }
     
-    // game logic
-    func renderer(_ aRenderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
-        let defaultEngineForce: CGFloat = 300.0
-        let defaultBrakingForce: CGFloat = 3.0
-        let steeringClamp: CGFloat = 0.6
-        let cameraDamping: CGFloat = 0.3
-        
-        let scnView = view as! GameView
-        
-        var engineForce: CGFloat = 0
-        var brakingForce: CGFloat = 0
-        
-        let controllers = GCController.controllers()
-        
-        var orientation = _orientation
-        
-        //drive: 1 touch = accelerate, 2 touches = backward, 3 touches = brake
-        if scnView.touchCount == 1 {
-            engineForce = defaultEngineForce
-            _reactor.birthRate = _reactorDefaultBirthRate
-        } else if scnView.touchCount == 2 {
-            engineForce = -defaultEngineForce
-            _reactor.birthRate = 0
-        } else if scnView.touchCount == 3 {
-            brakingForce = 100
-            _reactor.birthRate = 0
-        } else {
-            brakingForce = defaultBrakingForce
-            _reactor.birthRate = 0
-        }
-        
-        //controller support
-        if !controllers.isEmpty {
-            let controller = controllers[0]
-            let pad = controller.gamepad!
-            let dpad = pad.dpad
-            
-            struct My {
-                static var orientationCum: CGFloat = 0
-            }
-            
-            let INCR_ORIENTATION: CGFloat = 0.03
-            let DECR_ORIENTATION: CGFloat = 0.8
-            
-            if dpad.right.isPressed {
-                if My.orientationCum < 0 {
-                    My.orientationCum *= DECR_ORIENTATION
-                }
-                My.orientationCum += INCR_ORIENTATION
-                if My.orientationCum > 1 {
-                    My.orientationCum = 1
-                }
-            } else if dpad.left.isPressed {
-                if My.orientationCum > 0 {
-                    My.orientationCum *= DECR_ORIENTATION
-                }
-                My.orientationCum -= INCR_ORIENTATION
-                if My.orientationCum < -1 {
-                    My.orientationCum = -1
-                }
-            } else {
-                My.orientationCum *= DECR_ORIENTATION
-            }
-            
-            orientation = My.orientationCum
-            
-            if pad.buttonX.isPressed {
-                engineForce = defaultEngineForce
-                _reactor.birthRate = _reactorDefaultBirthRate
-            } else if pad.buttonA.isPressed {
-                engineForce = -defaultEngineForce
-                _reactor.birthRate = 0
-            } else if pad.buttonB.isPressed {
-                brakingForce = 100
-                _reactor.birthRate = 0
-            } else {
-                brakingForce = defaultBrakingForce
-                _reactor.birthRate = 0
-            }
-        }
-        
-        _vehicleSteering = -orientation
-        if orientation == 0 {
-            _vehicleSteering *= 0.9
-        }
-        if _vehicleSteering < -steeringClamp {
-            _vehicleSteering = -steeringClamp
-        }
-        if _vehicleSteering > steeringClamp {
-            _vehicleSteering = steeringClamp
-        }
-        
-        //update the vehicle steering and acceleration
-        _vehicle.setSteeringAngle(_vehicleSteering, forWheelAt: 0)
-        _vehicle.setSteeringAngle(_vehicleSteering, forWheelAt: 1)
-        
-        _vehicle.applyEngineForce(engineForce, forWheelAt: 2)
-        _vehicle.applyEngineForce(engineForce, forWheelAt: 3)
-        
-        _vehicle.applyBrakingForce(brakingForce, forWheelAt: 2)
-        _vehicle.applyBrakingForce(brakingForce, forWheelAt: 3)
-        
-        //check if the car is upside down
-        reorientCarIfNeeded()
-        
-        // make camera follow the car node
-        let car = _vehicleNode.presentation
-        let carPos = car.position
-        let targetPos = SIMD3(carPos.x, Float(30), carPos.z + 25)
-//        var cameraPos = float3(_cameraNode.position)
-        var cameraPos = SIMD3(_cameraNode.position.x,_cameraNode.position.y,_cameraNode.position.z)
 
-        cameraPos = mix(cameraPos, targetPos, t: Float(cameraDamping))
-        _cameraNode.position = SCNVector3(cameraPos)
-        
-        if scnView.inCarView {
-            //move spot light in front of the camera
-            let frontPosition = scnView.pointOfView!.presentation.convertPosition(SCNVector3Make(0, 0, -30), to:nil)
-            _spotLightNode.position = SCNVector3Make(frontPosition.x, 80, frontPosition.z)
-            _spotLightNode.rotation = SCNVector4Make(1,0,0,-Float.pi/2)
-        } else {
-            //move spot light on top of the car
-            _spotLightNode.position = SCNVector3Make(carPos.x, 80, carPos.z + 30)
-            _spotLightNode.rotation = SCNVector4Make(1,0,0,-Float.pi/2.8)
-        }
-        
-        //speed gauge
-        let overlayScene = scnView.overlaySKScene as! OverlayScene
-        overlayScene.speedNeedle.zRotation = -(_vehicle.speedInKilometersPerHour * .pi / MAX_SPEED)
-    }
-    
-    private func reorientCarIfNeeded() {
-        let car = _vehicleNode.presentation
-        let carPos = car.position
-        
-        // make sure the car isn't upside down, and fix it if it is
-        struct My {
-            static var ticks = 0
-            static var check = 0
-            static var `try` = 0
-        }
-        func randf() -> Float {
-            return Float(arc4random())/Float(UInt32.max)
-        }
-        My.ticks += 1
-        if My.ticks == 30 {
-            let t = car.worldTransform
-            if t.m22 <= 0.1 {
-                My.check += 1
-                if My.check == 3 {
-                    My.try += 1
-                    if My.try == 3 {
-                        My.try = 0
-                        
-                        //hard reset
-                        _vehicleNode.rotation = SCNVector4Make(0, 0, 0, 0)
-                        _vehicleNode.position = SCNVector3Make(carPos.x, carPos.y + 10, carPos.z)
-                        _vehicleNode.physicsBody!.resetTransform()
-                    } else {
-                        //try to upturn with an random impulse
-                        let pos = SCNVector3Make(-10 * (randf() - 0.5), 0, -10 * (randf() - 0.5))
-                        _vehicleNode.physicsBody!.applyForce(SCNVector3Make(0, 300, 0), at: pos, asImpulse: true)
-                    }
-                    
-                    My.check = 0
-                }
-            } else {
-                My.check = 0
-            }
-            
-            My.ticks = 0
-        }
-    }
    
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -608,5 +419,32 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
+    
+    // 获取设备信息
+    private lazy var deviceName: String = {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        return withUnsafePointer(to: systemInfo.machine) {machinePtr in
+            String(cString: UnsafeRawPointer(machinePtr).assumingMemoryBound(to: CChar.self))
+        }
+    }()
+    
+    private var isHighEndDevice: Bool {
+        //return YES for iPhone 5s and iPad air, NO otherwise
+        return deviceName.hasPrefix("iPad4")
+            || deviceName.hasPrefix("iPhone6")
+            //### Added later devices...
+            || deviceName.hasPrefix("iPad5")
+            || deviceName.hasPrefix("iPad6")
+            || deviceName.hasPrefix("iPad7")
+            || deviceName.hasPrefix("iPad8")
+            || deviceName.hasPrefix("iPhone7")
+            || deviceName.hasPrefix("iPhone8")
+            || deviceName.hasPrefix("iPhone9")
+            || deviceName.hasPrefix("iPhone10")
+            || deviceName.hasPrefix("iPhone11")
+        
+    }
+    
     
 }
