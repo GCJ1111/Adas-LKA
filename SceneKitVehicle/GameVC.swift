@@ -63,6 +63,30 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         self.setupAccelerometer()
         
         super.viewDidLoad()
+        
+        
+        // 导入 scene
+        
+//        guard let myScene = SCNScene(named: "Lane-x1", inDirectory: "Resources", options: nil)
+        guard let myScene = SCNScene(named: "Lane-x1.scn")
+        else { fatalError("Unable to load scene file.") }
+
+        
+        // 获取 scnce 中的 Node ， 得到一个 【SCNNode?】
+        let lane_tmplt = myScene.rootNode.childNode(withName: "lane-1", recursively: false)
+        lane_tmplt?.scale = SCNVector3(1.5, 1.5, 1.0)
+        for i in stride( from : -50 , through : 50 ,  by : 1.0){
+            let poxZ:Float = Float(30.0 * i);
+            
+            if let lane_x1 = lane_tmplt?.clone(){
+                lane_x1.position = SCNVector3Make(0.0 , 0.0,  poxZ);
+                GLog("Turn-\(i) :\(lane_x1.position.z)");
+                scene.rootNode.addChildNode(lane_x1)
+
+            }
+            
+        }
+            
     }
     
     private func setupScene() -> SCNScene {
@@ -71,10 +95,10 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         
         //global environment
         setupEnvironment(scene)
-        
-        //add elements
-        setupSceneElements(scene)
-        
+//        
+//        //add elements
+//        setupSceneElements(scene)
+//        
         //setup vehicle
         _vehicleNode = setupVehicle(scene)
         

@@ -52,6 +52,7 @@
 		A16EF30A2572855300F829C0 /* GameVC+PadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16EF3092572855300F829C0 /* GameVC+PadController.swift */; };
 		A16EF30D2572929300F829C0 /* GameVC+AddElemets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16EF30C2572929300F829C0 /* GameVC+AddElemets.swift */; };
 		A16EF310257293EC00F829C0 /* GameVC+VehDynm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16EF30F257293EC00F829C0 /* GameVC+VehDynm.swift */; };
+		A16EF31D25729DAC00F829C0 /* Lane-x1.scn in Resources */ = {isa = PBXBuildFile; fileRef = A16EF31C25729DAC00F829C0 /* Lane-x1.scn */; };
 		A18F0A662572550400924E2C /* GameVC+InitScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F0A652572550400924E2C /* GameVC+InitScene.swift */; };
 		A18F0A6F2572704700924E2C /* Glog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F0A6E2572704700924E2C /* Glog.swift */; };
 		A18F0A762572728300924E2C /* GameVC+AccMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F0A752572728300924E2C /* GameVC+AccMeter.swift */; };
@@ -109,6 +110,7 @@
 		A16EF3092572855300F829C0 /* GameVC+PadController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+PadController.swift"; sourceTree = "<group>"; };
 		A16EF30C2572929300F829C0 /* GameVC+AddElemets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+AddElemets.swift"; sourceTree = "<group>"; };
 		A16EF30F257293EC00F829C0 /* GameVC+VehDynm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+VehDynm.swift"; sourceTree = "<group>"; };
+		A16EF31C25729DAC00F829C0 /* Lane-x1.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "Lane-x1.scn"; sourceTree = "<group>"; };
 		A18F0A652572550400924E2C /* GameVC+InitScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+InitScene.swift"; sourceTree = "<group>"; };
 		A18F0A6E2572704700924E2C /* Glog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Glog.swift; sourceTree = "<group>"; };
 		A18F0A752572728300924E2C /* GameVC+AccMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+AccMeter.swift"; sourceTree = "<group>"; };
@@ -152,35 +154,11 @@
 		944CD35318F1D91500F4DCDA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A16EF31A25729D1D00F829C0 /* AdasImages */,
+				A16EF31925729CF800F829C0 /* cartonImages */,
 				A16EF317257295B400F829C0 /* particle */,
 				A16EF3162572959E00F829C0 /* sound */,
 				A16EF3142572956B00F829C0 /* dae */,
-				94A4854518F1FAB200775D5E /* ball.jpg */,
-				94A4854618F1FAB200775D5E /* book_back.jpg */,
-				94A4854718F1FAB200775D5E /* book_front.jpg */,
-				94A4854818F1FAB200775D5E /* book_side_title.jpg */,
-				94A4854918F1FAB200775D5E /* book_side.jpg */,
-				94A4854A18F1FAB200775D5E /* carpet.jpg */,
-				94A4854B18F1FAB200775D5E /* icon.png */,
-				94A4854C18F1FAB200775D5E /* krStar.png */,
-				94A4854D18F1FAB200775D5E /* launch.png */,
-				94A4854E18F1FAB200775D5E /* needle.png */,
-				94A4855218F1FAB200775D5E /* spark.png */,
-				94A4855318F1FAB200775D5E /* speedGauge.png */,
-				94A4855418F1FAB200775D5E /* starBurst.skn */,
-				94A4855618F1FAB200775D5E /* tex_smoke.png */,
-				94A4855718F1FAB200775D5E /* tire.jpg */,
-				94A4855918F1FAB200775D5E /* train_wood.jpg */,
-				94A4855A18F1FAB200775D5E /* video_camera.png */,
-				94A4855B18F1FAB200775D5E /* video_camera@2x.png */,
-				94A4855C18F1FAB200775D5E /* wall.jpg */,
-				94A4855D18F1FAB200775D5E /* wheel.png */,
-				94A4855E18F1FAB200775D5E /* wood.png */,
-				94A4855F18F1FAB200775D5E /* WoodCubeA.jpg */,
-				94A4856018F1FAB200775D5E /* WoodCubeB.jpg */,
-				94A4856118F1FAB200775D5E /* WoodCubeC.jpg */,
-				9C765F10193561FE00C1D23C /* rc_car_texture.png */,
-				945AD7A018F1FB2500351CB5 /* smoke.png */,
 			);
 			name = Resources;
 			path = SceneKitVehicle/resources;
@@ -241,6 +219,7 @@
 		A16EF3142572956B00F829C0 /* dae */ = {
 			isa = PBXGroup;
 			children = (
+				A16EF31C25729DAC00F829C0 /* Lane-x1.scn */,
 				94A4855818F1FAB200775D5E /* train_flat.dae */,
 				9CF4337A19354D75001A1D66 /* rc_car.dae */,
 			);
@@ -262,6 +241,46 @@
 				945AD79F18F1FB2500351CB5 /* smoke.scnp */,
 			);
 			name = particle;
+			sourceTree = "<group>";
+		};
+		A16EF31925729CF800F829C0 /* cartonImages */ = {
+			isa = PBXGroup;
+			children = (
+				94A4854518F1FAB200775D5E /* ball.jpg */,
+				94A4854618F1FAB200775D5E /* book_back.jpg */,
+				94A4854718F1FAB200775D5E /* book_front.jpg */,
+				94A4854818F1FAB200775D5E /* book_side_title.jpg */,
+				94A4854918F1FAB200775D5E /* book_side.jpg */,
+				94A4854A18F1FAB200775D5E /* carpet.jpg */,
+				94A4854B18F1FAB200775D5E /* icon.png */,
+				94A4854C18F1FAB200775D5E /* krStar.png */,
+				94A4854D18F1FAB200775D5E /* launch.png */,
+				94A4854E18F1FAB200775D5E /* needle.png */,
+				94A4855218F1FAB200775D5E /* spark.png */,
+				94A4855318F1FAB200775D5E /* speedGauge.png */,
+				94A4855418F1FAB200775D5E /* starBurst.skn */,
+				94A4855618F1FAB200775D5E /* tex_smoke.png */,
+				94A4855718F1FAB200775D5E /* tire.jpg */,
+				94A4855918F1FAB200775D5E /* train_wood.jpg */,
+				94A4855A18F1FAB200775D5E /* video_camera.png */,
+				94A4855B18F1FAB200775D5E /* video_camera@2x.png */,
+				94A4855C18F1FAB200775D5E /* wall.jpg */,
+				94A4855D18F1FAB200775D5E /* wheel.png */,
+				94A4855E18F1FAB200775D5E /* wood.png */,
+				94A4855F18F1FAB200775D5E /* WoodCubeA.jpg */,
+				94A4856018F1FAB200775D5E /* WoodCubeB.jpg */,
+				94A4856118F1FAB200775D5E /* WoodCubeC.jpg */,
+				9C765F10193561FE00C1D23C /* rc_car_texture.png */,
+				945AD7A018F1FB2500351CB5 /* smoke.png */,
+			);
+			name = cartonImages;
+			sourceTree = "<group>";
+		};
+		A16EF31A25729D1D00F829C0 /* AdasImages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = AdasImages;
 			sourceTree = "<group>";
 		};
 		A18F0A712572705600924E2C /* utils */ = {
@@ -344,6 +363,7 @@
 				94A4856618F1FAB200775D5E /* book_side_title.jpg in Resources */,
 				9461832A18F08C1D00FDFE48 /* Images.xcassets in Resources */,
 				94A4857918F1FAB200775D5E /* video_camera@2x.png in Resources */,
+				A16EF31D25729DAC00F829C0 /* Lane-x1.scn in Resources */,
 				9461832218F08C1D00FDFE48 /* Main_iPhone.storyboard in Resources */,
 				9655E4E819265809006C3A3B /* click.caf in Resources */,
 				94A4857D18F1FAB200775D5E /* WoodCubeA.jpg in Resources */,
