@@ -55,6 +55,7 @@ class GameView: SCNView {
         //test if we hit the camera button
         let scene = overlaySKScene
         var p = touch.location(in: self)
+        //The scene must be presented in a view before calling this method.
         p = scene!.convertPoint(fromView: p)
         let node = scene!.atPoint(p)
         

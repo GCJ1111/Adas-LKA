@@ -16,11 +16,11 @@
  */
 
 import UIKit
-import CoreMotion
 import SpriteKit
 import SceneKit
 import GameController
 import simd
+import CoreMotion
 
 //--Global constants
 //let π = M_PI
@@ -34,15 +34,15 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
     
     //some node references for manipulation
     private var _spotLightNode: SCNNode!
-    private var _cameraNode: SCNNode!          //the node that owns the camera
+    var _cameraNode: SCNNode!          //the node that owns the camera
     private var _vehicleNode: SCNNode!
     private var _vehicle: SCNPhysicsVehicle!
     private var _reactor: SCNParticleSystem!
     
     //accelerometer
-    private var _motionManager: CMMotionManager!
-    private var _accelerometer = [UIAccelerationValue](repeating: 0.0, count: 3)
-    private var _orientation: CGFloat = 0.0
+    var _motionManager: CMMotionManager!
+    var _accelerometer = [UIAccelerationValue](repeating: 0.0, count: 3)
+    var _orientation: CGFloat = 0.0
     
     //reactor's particle birth rate
     private var _reactorDefaultBirthRate: CGFloat = 0.0
@@ -325,10 +325,10 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         let (min, max) = wheel0Node.boundingBox
         let wheelHalfWidth = Float(0.5 * (max.x - min.x))
         
-        wheel0.connectionPosition = SCNVector3(float3(wheel0Node.convertPosition(SCNVector3Zero, to: chassisNode)) + float3(wheelHalfWidth, 0, 0))
-        wheel1.connectionPosition = SCNVector3(float3(wheel1Node.convertPosition(SCNVector3Zero, to: chassisNode)) - float3(wheelHalfWidth, 0, 0))
-        wheel2.connectionPosition = SCNVector3(float3(wheel2Node.convertPosition(SCNVector3Zero, to: chassisNode)) + float3(wheelHalfWidth, 0, 0))
-        wheel3.connectionPosition = SCNVector3(float3(wheel3Node.convertPosition(SCNVector3Zero, to: chassisNode)) - float3(wheelHalfWidth, 0, 0))
+        wheel0.connectionPosition = SCNVector3(SIMD3(wheel0Node.convertPosition(SCNVector3Zero, to: chassisNode)) + SIMD3(wheelHalfWidth, 0, 0))
+        wheel1.connectionPosition = SCNVector3(SIMD3(wheel1Node.convertPosition(SCNVector3Zero, to: chassisNode)) - SIMD3(wheelHalfWidth, 0, 0))
+        wheel2.connectionPosition = SCNVector3(SIMD3(wheel2Node.convertPosition(SCNVector3Zero, to: chassisNode)) + SIMD3(wheelHalfWidth, 0, 0))
+        wheel3.connectionPosition = SCNVector3(SIMD3(wheel3Node.convertPosition(SCNVector3Zero, to: chassisNode)) - SIMD3(wheelHalfWidth, 0, 0))
         
         // create the physics vehicle
         let vehicle = SCNPhysicsVehicle(chassisBody: chassisNode!.physicsBody!, wheels: [wheel0, wheel1, wheel2, wheel3])
@@ -342,6 +342,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
     private func setupScene() -> SCNScene {
         // create a new scene
         let scene = SCNScene()
+
         
         //global environment
         setupEnvironment(scene)
@@ -365,7 +366,8 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         frontCameraNode.position = SCNVector3Make(0, 3.5, 2.5)
         frontCameraNode.rotation = SCNVector4Make(0, 1, 0, .pi)
         frontCameraNode.camera = SCNCamera()
-        frontCameraNode.camera!.xFov = 75
+//        frontCameraNode.camera!.xFov = 75
+        frontCameraNode.camera!.fieldOfView = 75
         frontCameraNode.camera!.zFar = 500
         
         _vehicleNode.addChildNode(frontCameraNode)
@@ -373,58 +375,24 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         return scene
     }
     
-    private func setupAccelerometer() {
-        //event
-        _motionManager = CMMotionManager()
-        
-        if GCController.controllers().count == 0 && _motionManager.isAccelerometerAvailable {
-            _motionManager.accelerometerUpdateInterval = 1/60.0
-            _motionManager.startAccelerometerUpdates(to: OperationQueue.main) {[weak self] accelerometerData, error in
-                self!.accelerometerDidChange(accelerometerData!.acceleration)
-            }
-        }
-    }
+
     
     override var prefersStatusBarHidden : Bool {
         return true
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UIApplication.shared.isStatusBarHidden = true
-        
-        let scnView = view as! SCNView
-        
-        //set the background to back
-        scnView.backgroundColor = SKColor.black
-        
+//        UIApplication.shared.isStatusBarHidden = true
+
         //setup the scene
         let scene = setupScene()
-        
-        //present it
-        scnView.scene = scene
-        
-        //tweak physics
-        scnView.scene!.physicsWorld.speed = 4.0
-        
-        //setup overlays
-        scnView.overlaySKScene = OverlayScene(size: scnView.bounds.size)
-        
+   
+        self.initScene(scene)
+
         //setup accelerometer
-        setupAccelerometer()
-        
-        //initial point of view
-        scnView.pointOfView = _cameraNode
-        
-        //plug game logic
-        scnView.delegate = self
-        
-        
-        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
-        doubleTap.numberOfTapsRequired = 2
-        doubleTap.numberOfTouchesRequired = 2
-        scnView.gestureRecognizers = [doubleTap]
+        self.setupAccelerometer()
         
         super.viewDidLoad()
     }
@@ -432,6 +400,9 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
     @objc func handleDoubleTap(_ gesture: UITapGestureRecognizer) {
         let scene = setupScene()
         
+        
+        // TODO: 统一使用 initScene(_ scene: SCNScene)
+
         let scnView = view as! SCNView
         //present it
         scnView.scene = scene
@@ -553,8 +524,10 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         // make camera follow the car node
         let car = _vehicleNode.presentation
         let carPos = car.position
-        let targetPos = float3(carPos.x, Float(30), carPos.z + 25)
-        var cameraPos = float3(_cameraNode.position)
+        let targetPos = SIMD3(carPos.x, Float(30), carPos.z + 25)
+//        var cameraPos = float3(_cameraNode.position)
+        var cameraPos = SIMD3(_cameraNode.position.x,_cameraNode.position.y,_cameraNode.position.z)
+
         cameraPos = mix(cameraPos, targetPos, t: Float(cameraDamping))
         _cameraNode.position = SCNVector3(cameraPos)
         
@@ -616,21 +589,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
             My.ticks = 0
         }
     }
-    
-    private func accelerometerDidChange(_ acceleration: CMAcceleration) {
-        let kFilteringFactor = 0.5
-        
-        //Use a basic low-pass filter to only keep the gravity in the accelerometer values
-        _accelerometer[0] = acceleration.x * kFilteringFactor + _accelerometer[0] * (1.0 - kFilteringFactor)
-        _accelerometer[1] = acceleration.y * kFilteringFactor + _accelerometer[1] * (1.0 - kFilteringFactor)
-        _accelerometer[2] = acceleration.z * kFilteringFactor + _accelerometer[2] * (1.0 - kFilteringFactor)
-        
-        if _accelerometer[0] > 0 {
-            _orientation = CGFloat(_accelerometer[1] * 1.3)
-        } else {
-            _orientation = -CGFloat(_accelerometer[1] * 1.3)
-        }
-    }
+   
     
     override func viewWillDisappear(_ animated: Bool) {
         _motionManager.stopAccelerometerUpdates()
