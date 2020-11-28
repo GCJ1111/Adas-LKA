@@ -14,8 +14,6 @@ import GameController
 
 extension GameViewController
 {
-        
-
     // game logic
     func renderer(_ aRenderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
         
@@ -144,7 +142,7 @@ extension GameViewController
             _spotLightNode.rotation = SCNVector4Make(1,0,0,-Float.pi/2.8)
         }
         
-        //speed gauge
+        //speed gauge. 车速仪表显示， 指针绕 Z轴 旋转
         let overlayScene = scnView.overlaySKScene as! OverlayScene
         overlayScene.speedNeedle.zRotation = -(_vehicle.speedInKilometersPerHour * .pi / MAX_SPEED)
     }

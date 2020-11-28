@@ -49,6 +49,9 @@
 		9CF4337B19354D75001A1D66 /* rc_car.dae in Resources */ = {isa = PBXBuildFile; fileRef = 9CF4337A19354D75001A1D66 /* rc_car.dae */; };
 		A16EF303257280FB00F829C0 /* GameVC+RenderLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16EF302257280FB00F829C0 /* GameVC+RenderLogic.swift */; };
 		A16EF3062572832100F829C0 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16EF3052572832100F829C0 /* Constant.swift */; };
+		A16EF30A2572855300F829C0 /* GameVC+PadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16EF3092572855300F829C0 /* GameVC+PadController.swift */; };
+		A16EF30D2572929300F829C0 /* GameVC+AddElemets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16EF30C2572929300F829C0 /* GameVC+AddElemets.swift */; };
+		A16EF310257293EC00F829C0 /* GameVC+VehDynm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16EF30F257293EC00F829C0 /* GameVC+VehDynm.swift */; };
 		A18F0A662572550400924E2C /* GameVC+InitScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F0A652572550400924E2C /* GameVC+InitScene.swift */; };
 		A18F0A6F2572704700924E2C /* Glog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F0A6E2572704700924E2C /* Glog.swift */; };
 		A18F0A762572728300924E2C /* GameVC+AccMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F0A752572728300924E2C /* GameVC+AccMeter.swift */; };
@@ -103,6 +106,9 @@
 		9CF4337A19354D75001A1D66 /* rc_car.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = rc_car.dae; sourceTree = "<group>"; };
 		A16EF302257280FB00F829C0 /* GameVC+RenderLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+RenderLogic.swift"; sourceTree = "<group>"; };
 		A16EF3052572832100F829C0 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		A16EF3092572855300F829C0 /* GameVC+PadController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+PadController.swift"; sourceTree = "<group>"; };
+		A16EF30C2572929300F829C0 /* GameVC+AddElemets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+AddElemets.swift"; sourceTree = "<group>"; };
+		A16EF30F257293EC00F829C0 /* GameVC+VehDynm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+VehDynm.swift"; sourceTree = "<group>"; };
 		A18F0A652572550400924E2C /* GameVC+InitScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+InitScene.swift"; sourceTree = "<group>"; };
 		A18F0A6E2572704700924E2C /* Glog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Glog.swift; sourceTree = "<group>"; };
 		A18F0A752572728300924E2C /* GameVC+AccMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+AccMeter.swift"; sourceTree = "<group>"; };
@@ -146,6 +152,9 @@
 		944CD35318F1D91500F4DCDA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A16EF317257295B400F829C0 /* particle */,
+				A16EF3162572959E00F829C0 /* sound */,
+				A16EF3142572956B00F829C0 /* dae */,
 				94A4854518F1FAB200775D5E /* ball.jpg */,
 				94A4854618F1FAB200775D5E /* book_back.jpg */,
 				94A4854718F1FAB200775D5E /* book_front.jpg */,
@@ -158,7 +167,6 @@
 				94A4854E18F1FAB200775D5E /* needle.png */,
 				94A4855218F1FAB200775D5E /* spark.png */,
 				94A4855318F1FAB200775D5E /* speedGauge.png */,
-				9655E4E719265697006C3A3B /* click.caf */,
 				94A4855418F1FAB200775D5E /* starBurst.skn */,
 				94A4855618F1FAB200775D5E /* tex_smoke.png */,
 				94A4855718F1FAB200775D5E /* tire.jpg */,
@@ -171,11 +179,7 @@
 				94A4855F18F1FAB200775D5E /* WoodCubeA.jpg */,
 				94A4856018F1FAB200775D5E /* WoodCubeB.jpg */,
 				94A4856118F1FAB200775D5E /* WoodCubeC.jpg */,
-				94A4855818F1FAB200775D5E /* train_flat.dae */,
-				9CF4337A19354D75001A1D66 /* rc_car.dae */,
 				9C765F10193561FE00C1D23C /* rc_car_texture.png */,
-				945AD79D18F1FB0800351CB5 /* reactor.scnp */,
-				945AD79F18F1FB2500351CB5 /* smoke.scnp */,
 				945AD7A018F1FB2500351CB5 /* smoke.png */,
 			);
 			name = Resources;
@@ -209,9 +213,12 @@
 				A18F0A712572705600924E2C /* utils */,
 				D75314A919B795110021B0F8 /* AppDelegate.swift */,
 				D7D7D2EC19A0CEE90065D098 /* GameVC.swift */,
+				A16EF30C2572929300F829C0 /* GameVC+AddElemets.swift */,
 				A18F0A652572550400924E2C /* GameVC+InitScene.swift */,
 				A16EF302257280FB00F829C0 /* GameVC+RenderLogic.swift */,
+				A16EF30F257293EC00F829C0 /* GameVC+VehDynm.swift */,
 				A18F0A752572728300924E2C /* GameVC+AccMeter.swift */,
+				A16EF3092572855300F829C0 /* GameVC+PadController.swift */,
 				D7D7D2EA19A0CA7D0065D098 /* GameView.swift */,
 				D7D7D2BA19A034B20065D098 /* OverlayScene.swift */,
 				9461832918F08C1D00FDFE48 /* Images.xcassets */,
@@ -229,6 +236,32 @@
 				9461831718F08C1D00FDFE48 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A16EF3142572956B00F829C0 /* dae */ = {
+			isa = PBXGroup;
+			children = (
+				94A4855818F1FAB200775D5E /* train_flat.dae */,
+				9CF4337A19354D75001A1D66 /* rc_car.dae */,
+			);
+			name = dae;
+			sourceTree = "<group>";
+		};
+		A16EF3162572959E00F829C0 /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				9655E4E719265697006C3A3B /* click.caf */,
+			);
+			name = sound;
+			sourceTree = "<group>";
+		};
+		A16EF317257295B400F829C0 /* particle */ = {
+			isa = PBXGroup;
+			children = (
+				945AD79D18F1FB0800351CB5 /* reactor.scnp */,
+				945AD79F18F1FB2500351CB5 /* smoke.scnp */,
+			);
+			name = particle;
 			sourceTree = "<group>";
 		};
 		A18F0A712572705600924E2C /* utils */ = {
@@ -346,11 +379,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D75314AA19B795110021B0F8 /* AppDelegate.swift in Sources */,
+				A16EF30D2572929300F829C0 /* GameVC+AddElemets.swift in Sources */,
 				D7D7D2EB19A0CA7D0065D098 /* GameView.swift in Sources */,
 				A16EF3062572832100F829C0 /* Constant.swift in Sources */,
 				A18F0A662572550400924E2C /* GameVC+InitScene.swift in Sources */,
 				A18F0A6F2572704700924E2C /* Glog.swift in Sources */,
 				D79862B419B358F200ADDB1D /* GameVC.swift in Sources */,
+				A16EF30A2572855300F829C0 /* GameVC+PadController.swift in Sources */,
+				A16EF310257293EC00F829C0 /* GameVC+VehDynm.swift in Sources */,
 				A18F0A762572728300924E2C /* GameVC+AccMeter.swift in Sources */,
 				D7D7D2BB19A034B20065D098 /* OverlayScene.swift in Sources */,
 				A16EF303257280FB00F829C0 /* GameVC+RenderLogic.swift in Sources */,
