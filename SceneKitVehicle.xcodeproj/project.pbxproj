@@ -49,6 +49,7 @@
 		9CF4337B19354D75001A1D66 /* rc_car.dae in Resources */ = {isa = PBXBuildFile; fileRef = 9CF4337A19354D75001A1D66 /* rc_car.dae */; };
 		A15643BE25734A9D002DB580 /* road.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = A15643BD25734A9D002DB580 /* road.jpeg */; };
 		A15643C4257386A4002DB580 /* grass.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A15643C3257386A4002DB580 /* grass.jpg */; };
+		A15643C7257399AE002DB580 /* gress2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A15643C6257399AE002DB580 /* gress2.jpg */; };
 		A16EF303257280FB00F829C0 /* GameVC+RenderLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16EF302257280FB00F829C0 /* GameVC+RenderLogic.swift */; };
 		A16EF3062572832100F829C0 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16EF3052572832100F829C0 /* Constant.swift */; };
 		A16EF30A2572855300F829C0 /* GameVC+PadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16EF3092572855300F829C0 /* GameVC+PadController.swift */; };
@@ -109,6 +110,7 @@
 		9CF4337A19354D75001A1D66 /* rc_car.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = rc_car.dae; sourceTree = "<group>"; };
 		A15643BD25734A9D002DB580 /* road.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = road.jpeg; sourceTree = "<group>"; };
 		A15643C3257386A4002DB580 /* grass.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grass.jpg; sourceTree = "<group>"; };
+		A15643C6257399AE002DB580 /* gress2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gress2.jpg; sourceTree = "<group>"; };
 		A16EF302257280FB00F829C0 /* GameVC+RenderLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+RenderLogic.swift"; sourceTree = "<group>"; };
 		A16EF3052572832100F829C0 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		A16EF3092572855300F829C0 /* GameVC+PadController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+PadController.swift"; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 		A16EF31A25729D1D00F829C0 /* AdasImages */ = {
 			isa = PBXGroup;
 			children = (
+				A15643C6257399AE002DB580 /* gress2.jpg */,
 				A15643C3257386A4002DB580 /* grass.jpg */,
 				A15643BD25734A9D002DB580 /* road.jpeg */,
 			);
@@ -389,6 +392,7 @@
 				A16EF32025731D0200F829C0 /* art.scnassets in Resources */,
 				94A4857E18F1FAB200775D5E /* WoodCubeB.jpg in Resources */,
 				94A4857218F1FAB200775D5E /* starBurst.skn in Resources */,
+				A15643C7257399AE002DB580 /* gress2.jpg in Resources */,
 				94A4856818F1FAB200775D5E /* carpet.jpg in Resources */,
 				945AD79E18F1FB0800351CB5 /* reactor.scnp in Resources */,
 				94A4856718F1FAB200775D5E /* book_side.jpg in Resources */,
