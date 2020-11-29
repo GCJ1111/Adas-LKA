@@ -15,7 +15,7 @@ extension GameViewController
     func addRoadToScene(_ scene: SCNScene) {
         // add Road
     
-        guard let myScene = SCNScene(named: "art.scnassets/Lane-x1.scn")
+        guard let myScene = SCNScene(named: "art.scnassets/Lane-x3.scn")
         else { fatalError("Unable to load scene file.") }
         
         

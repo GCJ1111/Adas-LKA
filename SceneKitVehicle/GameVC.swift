@@ -134,9 +134,11 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         //floor ， 地板
         let floor = SCNNode()
         floor.geometry = SCNFloor()
-        floor.geometry!.firstMaterial!.diffuse.contents = "wood.png"
+//        floor.geometry!.firstMaterial!.diffuse.contents = "road.jpeg"
+        floor.geometry!.firstMaterial!.diffuse.contents = UIColor.black
+
         floor.geometry!.firstMaterial!.diffuse.contentsTransform = SCNMatrix4MakeScale(2, 2, 1) //scale the wood texture
-        floor.geometry!.firstMaterial!.locksAmbientWithDiffuse = true
+        floor.geometry!.firstMaterial!.locksAmbientWithDiffuse = false
 
         // 无论设备高端 与否
 //        (floor.geometry as! SCNFloor).reflectionFalloffEnd = 10
@@ -162,6 +164,9 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
 //        addCarpetToScene(scene)
 //
 //        addBallToScene(scene)
+        
+        
+        addRoadToScene(scene)
         
     }
     
