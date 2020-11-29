@@ -52,7 +52,7 @@
 		A16EF30A2572855300F829C0 /* GameVC+PadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16EF3092572855300F829C0 /* GameVC+PadController.swift */; };
 		A16EF30D2572929300F829C0 /* GameVC+AddElemets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16EF30C2572929300F829C0 /* GameVC+AddElemets.swift */; };
 		A16EF310257293EC00F829C0 /* GameVC+VehDynm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16EF30F257293EC00F829C0 /* GameVC+VehDynm.swift */; };
-		A16EF31D25729DAC00F829C0 /* Lane-x1.scn in Resources */ = {isa = PBXBuildFile; fileRef = A16EF31C25729DAC00F829C0 /* Lane-x1.scn */; };
+		A16EF32025731D0200F829C0 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = A16EF31F25731D0200F829C0 /* art.scnassets */; };
 		A18F0A662572550400924E2C /* GameVC+InitScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F0A652572550400924E2C /* GameVC+InitScene.swift */; };
 		A18F0A6F2572704700924E2C /* Glog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F0A6E2572704700924E2C /* Glog.swift */; };
 		A18F0A762572728300924E2C /* GameVC+AccMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F0A752572728300924E2C /* GameVC+AccMeter.swift */; };
@@ -110,7 +110,7 @@
 		A16EF3092572855300F829C0 /* GameVC+PadController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+PadController.swift"; sourceTree = "<group>"; };
 		A16EF30C2572929300F829C0 /* GameVC+AddElemets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+AddElemets.swift"; sourceTree = "<group>"; };
 		A16EF30F257293EC00F829C0 /* GameVC+VehDynm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+VehDynm.swift"; sourceTree = "<group>"; };
-		A16EF31C25729DAC00F829C0 /* Lane-x1.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "Lane-x1.scn"; sourceTree = "<group>"; };
+		A16EF31F25731D0200F829C0 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		A18F0A652572550400924E2C /* GameVC+InitScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+InitScene.swift"; sourceTree = "<group>"; };
 		A18F0A6E2572704700924E2C /* Glog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Glog.swift; sourceTree = "<group>"; };
 		A18F0A752572728300924E2C /* GameVC+AccMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+AccMeter.swift"; sourceTree = "<group>"; };
@@ -200,6 +200,7 @@
 				D7D7D2EA19A0CA7D0065D098 /* GameView.swift */,
 				D7D7D2BA19A034B20065D098 /* OverlayScene.swift */,
 				9461832918F08C1D00FDFE48 /* Images.xcassets */,
+				A16EF31F25731D0200F829C0 /* art.scnassets */,
 				9461832018F08C1D00FDFE48 /* Main_iPhone.storyboard */,
 				9461832318F08C1D00FDFE48 /* Main_iPad.storyboard */,
 				9461831518F08C1D00FDFE48 /* Supporting Files */,
@@ -219,7 +220,6 @@
 		A16EF3142572956B00F829C0 /* dae */ = {
 			isa = PBXGroup;
 			children = (
-				A16EF31C25729DAC00F829C0 /* Lane-x1.scn */,
 				94A4855818F1FAB200775D5E /* train_flat.dae */,
 				9CF4337A19354D75001A1D66 /* rc_car.dae */,
 			);
@@ -363,7 +363,6 @@
 				94A4856618F1FAB200775D5E /* book_side_title.jpg in Resources */,
 				9461832A18F08C1D00FDFE48 /* Images.xcassets in Resources */,
 				94A4857918F1FAB200775D5E /* video_camera@2x.png in Resources */,
-				A16EF31D25729DAC00F829C0 /* Lane-x1.scn in Resources */,
 				9461832218F08C1D00FDFE48 /* Main_iPhone.storyboard in Resources */,
 				9655E4E819265809006C3A3B /* click.caf in Resources */,
 				94A4857D18F1FAB200775D5E /* WoodCubeA.jpg in Resources */,
@@ -379,6 +378,7 @@
 				94A4857718F1FAB200775D5E /* train_wood.jpg in Resources */,
 				94A4856A18F1FAB200775D5E /* krStar.png in Resources */,
 				94A4856518F1FAB200775D5E /* book_front.jpg in Resources */,
+				A16EF32025731D0200F829C0 /* art.scnassets in Resources */,
 				94A4857E18F1FAB200775D5E /* WoodCubeB.jpg in Resources */,
 				94A4857218F1FAB200775D5E /* starBurst.skn in Resources */,
 				94A4856818F1FAB200775D5E /* carpet.jpg in Resources */,

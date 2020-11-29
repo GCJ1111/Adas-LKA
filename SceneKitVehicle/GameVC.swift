@@ -67,25 +67,9 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         
         // 导入 scene
         
-//        guard let myScene = SCNScene(named: "Lane-x1", inDirectory: "Resources", options: nil)
-        guard let myScene = SCNScene(named: "Lane-x1.scn")
-        else { fatalError("Unable to load scene file.") }
 
         
-        // 获取 scnce 中的 Node ， 得到一个 【SCNNode?】
-        let lane_tmplt = myScene.rootNode.childNode(withName: "lane-1", recursively: false)
-        lane_tmplt?.scale = SCNVector3(1.5, 1.5, 1.0)
-        for i in stride( from : -50 , through : 50 ,  by : 1.0){
-            let poxZ:Float = Float(30.0 * i);
-            
-            if let lane_x1 = lane_tmplt?.clone(){
-                lane_x1.position = SCNVector3Make(0.0 , 0.0,  poxZ);
-                GLog("Turn-\(i) :\(lane_x1.position.z)");
-                scene.rootNode.addChildNode(lane_x1)
-
-            }
-            
-        }
+       
             
     }
     
@@ -97,7 +81,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         setupEnvironment(scene)
 //        
 //        //add elements
-//        setupSceneElements(scene)
+        setupSceneElements(scene)
 //        
         //setup vehicle
         _vehicleNode = setupVehicle(scene)
@@ -155,7 +139,8 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         floor.geometry!.firstMaterial!.locksAmbientWithDiffuse = true
 
         // 无论设备高端 与否
-        (floor.geometry as! SCNFloor).reflectionFalloffEnd = 10
+//        (floor.geometry as! SCNFloor).reflectionFalloffEnd = 10
+        (floor.geometry as! SCNFloor).reflectivity = 0.0
 
         // 静态 物理模型
         let staticBody = SCNPhysicsBody.static()
@@ -166,17 +151,18 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
     
     private func setupSceneElements(_ scene: SCNScene) {
         // add a train
-        addTrainToScene(scene, atPosition: SCNVector3Make(-5, 20, -40))
+//        addTrainToScene(scene, atPosition: SCNVector3Make(-5, 20, -40))
+//
+//        addWoodenBlockToScene_all(scene)
+//
+//        addWallToScene(scene)
+//
+//        addCartoonBookToScene(scene)
+//
+//        addCarpetToScene(scene)
+//
+//        addBallToScene(scene)
         
-        addWoodenBlockToScene_all(scene)
-        
-        addWallToScene(scene)
-        
-        addCartoonBookToScene(scene)
-        
-        addCarpetToScene(scene)
-        
-        addBallToScene(scene)
     }
     
 

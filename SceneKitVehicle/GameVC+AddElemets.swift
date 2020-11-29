@@ -12,6 +12,33 @@ import SceneKit
 extension GameViewController
 {
     
+    func addRoadToScene(_ scene: SCNScene) {
+        // add Road
+    
+        guard let myScene = SCNScene(named: "art.scnassets/Lane-x1.scn")
+        else { fatalError("Unable to load scene file.") }
+        
+        
+        // 获取 scnce 中的 Node ， 得到一个 【SCNNode?】
+        let lane_tmplt = myScene.rootNode.childNode(withName: "lane-1", recursively: false)
+        
+        
+        //        lane_tmplt?.scale = SCNVector3(1.5, 1.5, 1.0)
+        
+        for i in stride( from : -200 , through : 200 ,  by : 1.0){
+            let poxZ:Float = Float(12.0 * i);
+            
+            if let lane_x1 = lane_tmplt?.clone(){
+                lane_x1.position = SCNVector3Make(0.0 , 0.0,  poxZ);
+                GLog("Turn-\(i) :\(lane_x1.position.z)");
+                scene.rootNode.addChildNode(lane_x1)
+                
+            }
+            
+        }
+    }
+    
+    
     func addCarpetToScene(_ scene: SCNScene) {
         // add carpet
         let rug = SCNNode()
