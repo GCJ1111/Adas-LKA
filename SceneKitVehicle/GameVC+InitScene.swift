@@ -27,8 +27,8 @@ extension GameViewController
         //present it
         scnView.scene = scene
         
-        //tweak physics
-        scnView.scene!.physicsWorld.speed = 4.0
+        //tweak physics , 游戏进行速度，整体设置
+        scnView.scene!.physicsWorld.speed = 3.0
         
         //setup overlays
         scnView.overlaySKScene = OverlayScene(size: scnView.bounds.size)

@@ -97,7 +97,12 @@ extension GameViewController
             }
         }
         
-        _vehicleSteering = -orientation
+//        _vehicleSteering = -orientation
+        
+        /**
+         # Debug
+         */
+        _vehicleSteering = -0.1
         if orientation == 0 {
             _vehicleSteering *= 0.9
         }
@@ -109,20 +114,20 @@ extension GameViewController
         }
         
         //update the vehicle steering and acceleration
-        _vehicle.setSteeringAngle(_vehicleSteering, forWheelAt: 0)
-        _vehicle.setSteeringAngle(_vehicleSteering, forWheelAt: 1)
+        _playerVehPhyBody.setSteeringAngle(_vehicleSteering, forWheelAt: 0)
+        _playerVehPhyBody.setSteeringAngle(_vehicleSteering, forWheelAt: 1)
         
-        _vehicle.applyEngineForce(engineForce, forWheelAt: 2)
-        _vehicle.applyEngineForce(engineForce, forWheelAt: 3)
+        _playerVehPhyBody.applyEngineForce(engineForce, forWheelAt: 2)
+        _playerVehPhyBody.applyEngineForce(engineForce, forWheelAt: 3)
         
-        _vehicle.applyBrakingForce(brakingForce, forWheelAt: 2)
-        _vehicle.applyBrakingForce(brakingForce, forWheelAt: 3)
+        _playerVehPhyBody.applyBrakingForce(brakingForce, forWheelAt: 2)
+        _playerVehPhyBody.applyBrakingForce(brakingForce, forWheelAt: 3)
         
         //check if the car is upside down
         reorientCarIfNeeded()
         
         // make camera follow the car node
-        let car = _vehicleNode.presentation
+        let car = _playerVehNode.presentation
         let carPos = car.position
         let targetPos = SIMD3(carPos.x, Float(30), carPos.z + 25)
         //        var cameraPos = float3(_cameraNode.position)
@@ -144,12 +149,12 @@ extension GameViewController
         
         //speed gauge. 车速仪表显示， 指针绕 Z轴 旋转
         let overlayScene = scnView.overlaySKScene as! OverlayScene
-        overlayScene.speedNeedle.zRotation = -(_vehicle.speedInKilometersPerHour * .pi / MAX_SPEED)
+        overlayScene.speedNeedle.zRotation = -(_playerVehPhyBody.speedInKilometersPerHour * .pi / MAX_SPEED)
     }
     
     
     private func reorientCarIfNeeded() {
-        let car = _vehicleNode.presentation
+        let car = _playerVehNode.presentation
         let carPos = car.position
         
         // make sure the car isn't upside down, and fix it if it is
@@ -172,13 +177,13 @@ extension GameViewController
                         My.try = 0
                         
                         //hard reset
-                        _vehicleNode.rotation = SCNVector4Make(0, 0, 0, 0)
-                        _vehicleNode.position = SCNVector3Make(carPos.x, carPos.y + 10, carPos.z)
-                        _vehicleNode.physicsBody!.resetTransform()
+                        _playerVehNode.rotation = SCNVector4Make(0, 0, 0, 0)
+                        _playerVehNode.position = SCNVector3Make(carPos.x, carPos.y + 10, carPos.z)
+                        _playerVehNode.physicsBody!.resetTransform()
                     } else {
                         //try to upturn with an random impulse
                         let pos = SCNVector3Make(-10 * (randf() - 0.5), 0, -10 * (randf() - 0.5))
-                        _vehicleNode.physicsBody!.applyForce(SCNVector3Make(0, 300, 0), at: pos, asImpulse: true)
+                        _playerVehNode.physicsBody!.applyForce(SCNVector3Make(0, 300, 0), at: pos, asImpulse: true)
                     }
                     
                     My.check = 0

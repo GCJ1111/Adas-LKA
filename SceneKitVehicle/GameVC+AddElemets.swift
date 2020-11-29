@@ -29,7 +29,9 @@ extension GameViewController
             let poxZ:Float = Float(12.0 * i);
             
             if let lane_x1 = lane_tmplt?.clone(){
-                lane_x1.position = SCNVector3Make(0.0 , 0.0,  poxZ);
+                // 解决 渲染重影问题 ，设置 y != 0 即可。
+                // 不能在 editor中设置，因为最终起作用的是在这里。
+                lane_x1.position = SCNVector3Make(0.0 , 0.001,  poxZ);
                 GLog("Turn-\(i) :\(lane_x1.position.z)");
                 scene.rootNode.addChildNode(lane_x1)
                 

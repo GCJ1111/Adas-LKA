@@ -32,8 +32,9 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
     //some node references for manipulation
     var _spotLightNode: SCNNode!
     var _cameraNode: SCNNode!          //the node that owns the camera
-    var _vehicleNode: SCNNode!
-    var _vehicle: SCNPhysicsVehicle!
+    var _playerVehNode: SCNNode!
+    var _playerVehPhyBody: SCNPhysicsVehicle!
+    
     var _reactor: SCNParticleSystem!
     
     //accelerometer
@@ -79,12 +80,12 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         
         //global environment
         setupEnvironment(scene)
-//        
-//        //add elements
+
+        //add elements
         setupSceneElements(scene)
-//        
+
         //setup vehicle
-        _vehicleNode = setupVehicle(scene)
+        _playerVehNode = setupVehicle(scene)
         
         // setup Camera
         setupMainCamera(scene)
@@ -134,15 +135,15 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         //floor ， 地板
         let floor = SCNNode()
         floor.geometry = SCNFloor()
-//        floor.geometry!.firstMaterial!.diffuse.contents = "road.jpeg"
-        floor.geometry!.firstMaterial!.diffuse.contents = UIColor.black
+        floor.geometry!.firstMaterial!.diffuse.contents = "grass.jpg"
+//        floor.geometry!.firstMaterial!.diffuse.contents = UIColor.black
 
         floor.geometry!.firstMaterial!.diffuse.contentsTransform = SCNMatrix4MakeScale(2, 2, 1) //scale the wood texture
         floor.geometry!.firstMaterial!.locksAmbientWithDiffuse = false
 
         // 无论设备高端 与否
-//        (floor.geometry as! SCNFloor).reflectionFalloffEnd = 10
-        (floor.geometry as! SCNFloor).reflectivity = 0.0
+        (floor.geometry as! SCNFloor).reflectionFalloffEnd = 10
+//        (floor.geometry as! SCNFloor).reflectivity = 0.0
 
         // 静态 物理模型
         let staticBody = SCNPhysicsBody.static()
@@ -192,7 +193,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         frontCameraNode.camera!.fieldOfView = 75
         frontCameraNode.camera!.zFar = 500
         
-        _vehicleNode.addChildNode(frontCameraNode)
+        _playerVehNode.addChildNode(frontCameraNode)
         
     }
     
@@ -205,7 +206,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
     @objc func handleDoubleTap(_ gesture: UITapGestureRecognizer) {
         let scene = setupScene()
         
-        
+        GLog("双击事件 - 触发")
         // TODO: 统一使用 initScene(_ scene: SCNScene)
 
         let scnView = view as! SCNView

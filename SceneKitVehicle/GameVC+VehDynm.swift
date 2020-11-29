@@ -29,10 +29,10 @@ extension GameViewController{
         let wheelsPhys_array = SetupWheelSystem(chassisNode: chassisNode)
         
         // create the physics vehicle
-        let vehicle = SCNPhysicsVehicle(chassisBody: chassisNode!.physicsBody!, wheels: wheelsPhys_array)
-        scene.physicsWorld.addBehavior(vehicle)
+        let vehiclePhyBody = SCNPhysicsVehicle(chassisBody: chassisNode!.physicsBody!, wheels: wheelsPhys_array)
+        scene.physicsWorld.addBehavior(vehiclePhyBody)
         
-        _vehicle = vehicle
+        _playerVehPhyBody = vehiclePhyBody
         
         return chassisNode!
     }
@@ -69,12 +69,13 @@ extension GameViewController{
     }
     
     private func SetupWheelSystem(chassisNode: SCNNode?) -> [SCNPhysicsVehicleWheel]{
-        //add wheels
+        //get wheels node from ...
         let wheel0Node = chassisNode!.childNode(withName: "wheelLocator_FL", recursively: true)!
         let wheel1Node = chassisNode!.childNode(withName: "wheelLocator_FR", recursively: true)!
         let wheel2Node = chassisNode!.childNode(withName: "wheelLocator_RL", recursively: true)!
         let wheel3Node = chassisNode!.childNode(withName: "wheelLocator_RR", recursively: true)!
         
+        // 创建物理 Wheel
         let wheel0 = SCNPhysicsVehicleWheel(node: wheel0Node)
         let wheel1 = SCNPhysicsVehicleWheel(node: wheel1Node)
         let wheel2 = SCNPhysicsVehicleWheel(node: wheel2Node)
