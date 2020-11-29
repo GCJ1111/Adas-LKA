@@ -135,7 +135,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         //floor ， 地板
         let floor = SCNNode()
         floor.geometry = SCNFloor()
-        floor.geometry!.firstMaterial!.diffuse.contents = "grass.jpg"
+        floor.geometry!.firstMaterial!.diffuse.contents = "grass2.jpg"
 //        floor.geometry!.firstMaterial!.diffuse.contents = UIColor.black
 
         floor.geometry!.firstMaterial!.diffuse.contentsTransform = SCNMatrix4MakeScale(2, 2, 1) //scale the wood texture
