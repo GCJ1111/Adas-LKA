@@ -12,7 +12,7 @@ import SpriteKit
 import GameController
 
 
-extension GameViewController
+extension GameViewController: SCNSceneRendererDelegate
 {
     // game logic
     func renderer(_ aRenderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
@@ -102,7 +102,7 @@ extension GameViewController
         /**
          # Debug
          */
-        _vehicleSteering = -0.1
+        _vehicleSteering = -0.05
         if orientation == 0 {
             _vehicleSteering *= 0.9
         }
@@ -114,14 +114,14 @@ extension GameViewController
         }
         
         //update the vehicle steering and acceleration
-        _playerVehPhyBody.setSteeringAngle(_vehicleSteering, forWheelAt: 0)
-        _playerVehPhyBody.setSteeringAngle(_vehicleSteering, forWheelAt: 1)
+        _playerVehPhyBehav.setSteeringAngle(_vehicleSteering, forWheelAt: 0)
+        _playerVehPhyBehav.setSteeringAngle(_vehicleSteering, forWheelAt: 1)
         
-        _playerVehPhyBody.applyEngineForce(engineForce, forWheelAt: 2)
-        _playerVehPhyBody.applyEngineForce(engineForce, forWheelAt: 3)
+        _playerVehPhyBehav.applyEngineForce(engineForce, forWheelAt: 2)
+        _playerVehPhyBehav.applyEngineForce(engineForce, forWheelAt: 3)
         
-        _playerVehPhyBody.applyBrakingForce(brakingForce, forWheelAt: 2)
-        _playerVehPhyBody.applyBrakingForce(brakingForce, forWheelAt: 3)
+        _playerVehPhyBehav.applyBrakingForce(brakingForce, forWheelAt: 2)
+        _playerVehPhyBehav.applyBrakingForce(brakingForce, forWheelAt: 3)
         
         //check if the car is upside down
         reorientCarIfNeeded()
@@ -149,7 +149,19 @@ extension GameViewController
         
         //speed gauge. 车速仪表显示， 指针绕 Z轴 旋转
         let overlayScene = scnView.overlaySKScene as! OverlayScene
-        overlayScene.speedNeedle.zRotation = -(_playerVehPhyBody.speedInKilometersPerHour * .pi / MAX_SPEED)
+        overlayScene.speedNeedle.zRotation = -(_playerVehPhyBehav.speedInKilometersPerHour * .pi / MAX_SPEED)
+        
+        // 车速显示
+        if (_playerVehPhyBehav.speedInKilometersPerHour > 150) {
+            _playerVehNode.childNode(withName: "chassisInfoNode", recursively: true)?.isHidden = false
+        }
+        else
+        {
+            _playerVehNode.childNode(withName: "chassisInfoNode", recursively: true)?.isHidden = true
+
+
+            
+        }
     }
     
     

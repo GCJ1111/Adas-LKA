@@ -28,12 +28,12 @@ import CoreMotion
 //let π_4 = M_PI_4
 
 @objc(AAPLGameViewController)
-class GameViewController: UIViewController, SCNSceneRendererDelegate {
+class GameViewController: UIViewController {
     //some node references for manipulation
     var _spotLightNode: SCNNode!
     var _cameraNode: SCNNode!          //the node that owns the camera
     var _playerVehNode: SCNNode!
-    var _playerVehPhyBody: SCNPhysicsVehicle!
+    var _playerVehPhyBehav: SCNPhysicsVehicle!
     
     var _reactor: SCNParticleSystem!
     
@@ -61,7 +61,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         self.initScene(scene)
         
         //setup accelerometer
-        self.setupAccelerometer()
+//        self.setupAccelerometer()
         
         super.viewDidLoad()
         
@@ -76,6 +76,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
     
     private func setupScene() -> SCNScene {
         // create a new scene
+        // 纯代码创建，没有从 scn 文件中 加载
         let scene = SCNScene()
         
         //global environment
@@ -91,7 +92,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         setupMainCamera(scene)
         setupSecondaryCamera(scene)
         
-        
+        // 返回一个 搭建好的 scene， 也可以保存为一个 scn文件
         return scene
     }
     
@@ -169,6 +170,8 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         
         addRoadToScene(scene)
         
+
+        addBox(scene, withImageNamed: "aaa", atPosition: SCNVector3Make(3.0, 10.0, -10.0))
     }
     
 
@@ -203,6 +206,8 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
         return true
     }
 
+    
+    
     @objc func handleDoubleTap(_ gesture: UITapGestureRecognizer) {
         let scene = setupScene()
         

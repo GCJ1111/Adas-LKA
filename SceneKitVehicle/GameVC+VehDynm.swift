@@ -18,6 +18,13 @@ extension GameViewController{
         // 获取 scnce 中的 Node ， 得到一个 【SCNNode?】
         let chassisNode = carScene.rootNode.childNode(withName: "rccarBody", recursively: false)
         
+        let chassisInfoNode = SCNNode(geometry: SCNPlane(width: 10.0, height: 10.0))
+        chassisInfoNode.position = SCNVector3Make(10.0, 3.0, 0.0)
+        chassisInfoNode.name = "chassisInfoNode"
+        chassisNode!.addChildNode(chassisInfoNode)
+
+        
+        
         // 设置 车身的物理模型
         SetupChassisSystem(chassisNode: chassisNode)
         scene.rootNode.addChildNode(chassisNode!)
@@ -29,10 +36,10 @@ extension GameViewController{
         let wheelsPhys_array = SetupWheelSystem(chassisNode: chassisNode)
         
         // create the physics vehicle
-        let vehiclePhyBody = SCNPhysicsVehicle(chassisBody: chassisNode!.physicsBody!, wheels: wheelsPhys_array)
-        scene.physicsWorld.addBehavior(vehiclePhyBody)
+        let vehiclePhyBehav = SCNPhysicsVehicle(chassisBody: chassisNode!.physicsBody!, wheels: wheelsPhys_array)
+        scene.physicsWorld.addBehavior(vehiclePhyBehav)
         
-        _playerVehPhyBody = vehiclePhyBody
+        _playerVehPhyBehav = vehiclePhyBehav
         
         return chassisNode!
     }
@@ -48,12 +55,16 @@ extension GameViewController{
         // setup phy body
         let body = SCNPhysicsBody.dynamic()
         body.allowsResting = false
-        body.mass = 80
+        body.mass = 80.0
         body.restitution = 0.1
         body.friction = 0.5
         body.rollingFriction = 0
         
         chassisNode!.physicsBody = body
+        chassisNode!.physicsBody?.categoryBitMask = CAR_PHY_BODY
+        chassisNode!.physicsBody?.contactTestBitMask |= BOX_PHY_BODY
+        chassisNode!.physicsBody?.contactTestBitMask |= LANE_PHY_BODY
+
         
     }
     
@@ -62,7 +73,7 @@ extension GameViewController{
         let pipeNode = chassisNode!.childNode(withName: "pipe", recursively: true)
         _reactor = SCNParticleSystem(named: "reactor", inDirectory: nil)
         _reactorDefaultBirthRate = _reactor.birthRate
-        _reactor.birthRate = 0
+//        _reactor.birthRate = 1000
         pipeNode!.addParticleSystem(_reactor)
         
         

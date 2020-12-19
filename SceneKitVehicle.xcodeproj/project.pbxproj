@@ -59,6 +59,8 @@
 		A18F0A662572550400924E2C /* GameVC+InitScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F0A652572550400924E2C /* GameVC+InitScene.swift */; };
 		A18F0A6F2572704700924E2C /* Glog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F0A6E2572704700924E2C /* Glog.swift */; };
 		A18F0A762572728300924E2C /* GameVC+AccMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18F0A752572728300924E2C /* GameVC+AccMeter.swift */; };
+		A1BFCF87258DADD6008F2488 /* GameVC+AddBasicGeo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BFCF86258DADD6008F2488 /* GameVC+AddBasicGeo.swift */; };
+		A1BFCF8B258DD9D8008F2488 /* GameVC+ContactLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BFCF8A258DD9D8008F2488 /* GameVC+ContactLogic.swift */; };
 		D75314AA19B795110021B0F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75314A919B795110021B0F8 /* AppDelegate.swift */; };
 		D79862B419B358F200ADDB1D /* GameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D7D2EC19A0CEE90065D098 /* GameVC.swift */; };
 		D7D7D2BB19A034B20065D098 /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D7D2BA19A034B20065D098 /* OverlayScene.swift */; };
@@ -120,6 +122,8 @@
 		A18F0A652572550400924E2C /* GameVC+InitScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+InitScene.swift"; sourceTree = "<group>"; };
 		A18F0A6E2572704700924E2C /* Glog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Glog.swift; sourceTree = "<group>"; };
 		A18F0A752572728300924E2C /* GameVC+AccMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+AccMeter.swift"; sourceTree = "<group>"; };
+		A1BFCF86258DADD6008F2488 /* GameVC+AddBasicGeo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+AddBasicGeo.swift"; sourceTree = "<group>"; };
+		A1BFCF8A258DD9D8008F2488 /* GameVC+ContactLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameVC+ContactLogic.swift"; sourceTree = "<group>"; };
 		D75314A919B795110021B0F8 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D75EB98E1A9075210039D093 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		D75EB98F1A9075210039D093 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -197,9 +201,11 @@
 				A18F0A712572705600924E2C /* utils */,
 				D75314A919B795110021B0F8 /* AppDelegate.swift */,
 				D7D7D2EC19A0CEE90065D098 /* GameVC.swift */,
-				A16EF30C2572929300F829C0 /* GameVC+AddElemets.swift */,
 				A18F0A652572550400924E2C /* GameVC+InitScene.swift */,
+				A16EF30C2572929300F829C0 /* GameVC+AddElemets.swift */,
+				A1BFCF86258DADD6008F2488 /* GameVC+AddBasicGeo.swift */,
 				A16EF302257280FB00F829C0 /* GameVC+RenderLogic.swift */,
+				A1BFCF8A258DD9D8008F2488 /* GameVC+ContactLogic.swift */,
 				A16EF30F257293EC00F829C0 /* GameVC+VehDynm.swift */,
 				A18F0A752572728300924E2C /* GameVC+AccMeter.swift */,
 				A16EF3092572855300F829C0 /* GameVC+PadController.swift */,
@@ -410,10 +416,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1BFCF8B258DD9D8008F2488 /* GameVC+ContactLogic.swift in Sources */,
 				D75314AA19B795110021B0F8 /* AppDelegate.swift in Sources */,
 				A16EF30D2572929300F829C0 /* GameVC+AddElemets.swift in Sources */,
 				D7D7D2EB19A0CA7D0065D098 /* GameView.swift in Sources */,
 				A16EF3062572832100F829C0 /* Constant.swift in Sources */,
+				A1BFCF87258DADD6008F2488 /* GameVC+AddBasicGeo.swift in Sources */,
 				A18F0A662572550400924E2C /* GameVC+InitScene.swift in Sources */,
 				A18F0A6F2572704700924E2C /* Glog.swift in Sources */,
 				D79862B419B358F200ADDB1D /* GameVC.swift in Sources */,

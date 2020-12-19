@@ -18,7 +18,7 @@ extension GameViewController
     
     func initScene(_ scene: SCNScene){
 
-        let scnView = view as! SCNView
+        let scnView = view as! GameView
         
         //set the background to back
         scnView.backgroundColor = SKColor.black
@@ -27,6 +27,9 @@ extension GameViewController
         //present it
         scnView.scene = scene
         
+        // 世界的 重力系数
+        scene.physicsWorld.gravity = SCNVector3Make(0.0, -9.8, 0);
+        scene.physicsWorld.contactDelegate = self
         //tweak physics , 游戏进行速度，整体设置
         scnView.scene!.physicsWorld.speed = 3.0
         
