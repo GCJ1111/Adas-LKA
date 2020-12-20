@@ -102,7 +102,7 @@ extension GameViewController: SCNSceneRendererDelegate
         /**
          # Debug
          */
-        _vehicleSteering = -0.05
+//        _vehicleSteering = -0.05
         if orientation == 0 {
             _vehicleSteering *= 0.9
         }
@@ -152,7 +152,7 @@ extension GameViewController: SCNSceneRendererDelegate
         overlayScene.speedNeedle.zRotation = -(_playerVehPhyBehav.speedInKilometersPerHour * .pi / MAX_SPEED)
         
         // 车速显示
-        if (_playerVehPhyBehav.speedInKilometersPerHour > 150) {
+        if (_playerVehPhyBehav.speedInKilometersPerHour > 80) {
             _playerVehNode.childNode(withName: "chassisInfoNode", recursively: true)?.isHidden = false
         }
         else

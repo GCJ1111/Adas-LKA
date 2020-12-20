@@ -60,10 +60,12 @@ extension GameViewController{
         body.friction = 0.5
         body.rollingFriction = 0
         
+        // 设置 碰撞相关 属性
+        body.categoryBitMask = CAR_PHY_BODY
+//        body.contactTestBitMask |= BOX_PHY_BODY
+//        body.contactTestBitMask |= LANE_PHY_BODY
+
         chassisNode!.physicsBody = body
-        chassisNode!.physicsBody?.categoryBitMask = CAR_PHY_BODY
-        chassisNode!.physicsBody?.contactTestBitMask |= BOX_PHY_BODY
-        chassisNode!.physicsBody?.contactTestBitMask |= LANE_PHY_BODY
 
         
     }
@@ -86,12 +88,21 @@ extension GameViewController{
         let wheel2Node = chassisNode!.childNode(withName: "wheelLocator_RL", recursively: true)!
         let wheel3Node = chassisNode!.childNode(withName: "wheelLocator_RR", recursively: true)!
         
+        wheel1Node.physicsBody =  SCNPhysicsBody.dynamic()
+        // 设置 碰撞相关 属性
+        wheel1Node.physicsBody?.categoryBitMask = FR_WHEEL_BODY
+
+
+        wheel1Node.physicsBody?.contactTestBitMask |= LANE_PHY_BODY
+        wheel1Node.physicsBody?.contactTestBitMask |= BOX_PHY_BODY
+        wheel1Node.physicsBody?.contactTestBitMask |= CAR_PHY_BODY
+
         // 创建物理 Wheel
         let wheel0 = SCNPhysicsVehicleWheel(node: wheel0Node)
         let wheel1 = SCNPhysicsVehicleWheel(node: wheel1Node)
         let wheel2 = SCNPhysicsVehicleWheel(node: wheel2Node)
         let wheel3 = SCNPhysicsVehicleWheel(node: wheel3Node)
-        
+
         let (min, max) = wheel0Node.boundingBox
         let wheelHalfWidth = Float(0.5 * (max.x - min.x))
         

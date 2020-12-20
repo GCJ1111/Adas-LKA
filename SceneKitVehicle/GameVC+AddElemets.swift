@@ -25,7 +25,7 @@ extension GameViewController
         
         //        lane_tmplt?.scale = SCNVector3(1.5, 1.5, 1.0)
         
-        for i in stride( from : -200 , through : 200 ,  by : 1.0){
+        for i in stride( from : -2 , through : 20 ,  by : 1.0){
             let poxZ:Float = Float(12.0 * i);
             
             if let lane_x1 = lane_tmplt?.clone(){

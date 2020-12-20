@@ -67,12 +67,22 @@ class GameViewController: UIViewController {
         
         
         // 导入 scene
-        
+        nodeSelfCheck(scene)
 
         
        
             
     }
+    
+    private func nodeSelfCheck(_ scene: SCNScene) {
+        print("************ scene node check *************\n")
+        scene.rootNode.enumerateChildNodes { (aNode, aPoint) in
+            GLogSimple(aNode.name)
+            GLogSimple(aNode.physicsBody?.categoryBitMask)
+        }
+        
+    }
+
     
     private func setupScene() -> SCNScene {
         // create a new scene
@@ -139,6 +149,7 @@ class GameViewController: UIViewController {
         floor.geometry!.firstMaterial!.diffuse.contents = "grass2.jpg"
 //        floor.geometry!.firstMaterial!.diffuse.contents = UIColor.black
 
+        floor.name = "floor"
         floor.geometry!.firstMaterial!.diffuse.contentsTransform = SCNMatrix4MakeScale(2, 2, 1) //scale the wood texture
         floor.geometry!.firstMaterial!.locksAmbientWithDiffuse = false
 
@@ -149,7 +160,7 @@ class GameViewController: UIViewController {
         // 静态 物理模型
         let staticBody = SCNPhysicsBody.static()
         floor.physicsBody = staticBody
-        
+        floor.physicsBody?.categoryBitMask = FLOOR_PHY_BODY
         scene.rootNode.addChildNode(floor)
     }
     
@@ -170,8 +181,9 @@ class GameViewController: UIViewController {
         
         addRoadToScene(scene)
         
+//        addBoxMulti(scene)
 
-        addBox(scene, withImageNamed: "aaa", atPosition: SCNVector3Make(3.0, 10.0, -10.0))
+        addBox(scene, withImageNamed: "WoodCubeA.jpg", atPosition: SCNVector3Make(3.0, 10.0, -10.0))
     }
     
 

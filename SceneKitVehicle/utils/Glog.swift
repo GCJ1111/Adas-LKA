@@ -27,3 +27,15 @@ func GLog<T>(_ message: T,
 }
 
 
+func GLogSimple<T>(_ message: T,
+             method: String = #function,
+             lineChgMark: String = " >>> ")
+{
+    let logMessage = """
+    \(method)\
+    \(lineChgMark)\
+    \(message)
+    """
+    print(logMessage)
+    
+}

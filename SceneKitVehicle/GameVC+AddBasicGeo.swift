@@ -34,8 +34,9 @@ extension GameViewController
         block.physicsBody = SCNPhysicsBody.dynamic()
         block.physicsBody?.mass = 10.0
         block.physicsBody?.categoryBitMask = BOX_PHY_BODY
-//        block.physicsBody?.contactTestBitMask |= CAR_PHY_BODY
+        block.physicsBody?.contactTestBitMask = CAR_PHY_BODY
         //add to the scene
+        block.name = "Box-A"
         scene.rootNode.addChildNode(block)
     }
     
