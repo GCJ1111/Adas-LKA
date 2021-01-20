@@ -15,7 +15,9 @@ extension GameViewController
     func addRoadToScene(_ scene: SCNScene) {
         // add Road
     
-        guard let myScene = SCNScene(named: "art.scnassets/Lane-x3.scn")
+//        guard let myScene = SCNScene(named: "art.scnassets/Lane-x3.scn")
+        guard let myScene = SCNScene(named: "art.scnassets/Lane-x1.scn")
+//        guard let myScene = SCNScene(named: "art.scnassets/MainScene.scn")
         else { fatalError("Unable to load scene file.") }
         
         
@@ -25,18 +27,19 @@ extension GameViewController
         
         //        lane_tmplt?.scale = SCNVector3(1.5, 1.5, 1.0)
         
-        for i in stride( from : -2 , through : 20 ,  by : 1.0){
+        // from 必须从 -100 开始，貌似坐标系有问题
+        for i in stride( from : -100 , to : 200 ,  by : 1.0){
             let poxZ:Float = Float(12.0 * i);
             
             if let lane_x1 = lane_tmplt?.clone(){
                 // 解决 渲染重影问题 ，设置 y != 0 即可。
                 // 不能在 editor中设置，因为最终起作用的是在这里。
                 lane_x1.position = SCNVector3Make(0.0 , 0.001,  poxZ);
-                
-//                GLog("Turn-\(i) :\(lane_x1.position.z)");
+//                lane_x1.geometry.size
+                GLog("Turn-\(i) :\(lane_x1.position.z)");
                 
                 scene.rootNode.addChildNode(lane_x1)
-                
+
             }
             
         }

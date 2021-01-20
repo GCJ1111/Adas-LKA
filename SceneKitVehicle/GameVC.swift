@@ -87,7 +87,7 @@ class GameViewController: UIViewController {
     private func setupScene() -> SCNScene {
         // create a new scene
         // 纯代码创建，没有从 scn 文件中 加载
-        let scene = SCNScene()
+        let scene = SCNScene.init(named: "art.scnassets/MainScene.scn")!
         
         //global environment
         setupEnvironment(scene)
@@ -146,8 +146,8 @@ class GameViewController: UIViewController {
         //floor ， 地板
         let floor = SCNNode()
         floor.geometry = SCNFloor()
-        floor.geometry!.firstMaterial!.diffuse.contents = "grass2.jpg"
-//        floor.geometry!.firstMaterial!.diffuse.contents = UIColor.black
+//        floor.geometry!.firstMaterial!.diffuse.contents = "road.jpeg"
+        floor.geometry!.firstMaterial!.diffuse.contents = UIColor.black
 
         floor.name = "floor"
         floor.geometry!.firstMaterial!.diffuse.contentsTransform = SCNMatrix4MakeScale(2, 2, 1) //scale the wood texture
@@ -167,23 +167,23 @@ class GameViewController: UIViewController {
     private func setupSceneElements(_ scene: SCNScene) {
         // add a train
 //        addTrainToScene(scene, atPosition: SCNVector3Make(-5, 20, -40))
-//
+
 //        addWoodenBlockToScene_all(scene)
-//
+
 //        addWallToScene(scene)
-//
+
 //        addCartoonBookToScene(scene)
-//
+
 //        addCarpetToScene(scene)
-//
+
 //        addBallToScene(scene)
         
         
-        addRoadToScene(scene)
+//        addRoadToScene(scene)
         
 //        addBoxMulti(scene)
 
-        addBox(scene, withImageNamed: "WoodCubeA.jpg", atPosition: SCNVector3Make(3.0, 10.0, -10.0))
+//        addBox(scene, withImageNamed: "WoodCubeA.jpg", atPosition: SCNVector3Make(3.0, 10.0, -10.0))
     }
     
 

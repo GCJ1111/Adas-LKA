@@ -37,6 +37,13 @@ extension GameViewController
         block.physicsBody?.contactTestBitMask = CAR_PHY_BODY
         //add to the scene
         block.name = "Box-A"
+        
+        let boxFireParticle: SCNParticleSystem!
+
+        boxFireParticle = SCNParticleSystem(named: "reactor", inDirectory: nil)
+
+        block.addParticleSystem(boxFireParticle)
+        
         scene.rootNode.addChildNode(block)
     }
     
